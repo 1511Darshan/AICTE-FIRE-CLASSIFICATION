@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+.Python
+
+# Virtualenvs
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+*_checkpoint.ipynb
+
+# OS
+.DS_Store
+Thumbs.db
+.idea/
+
+# Data: keep a small sample in repo, but ignore raw/large data
+data/raw/
+*.csv
+
+# Model artifacts
+models/
+*.h5
+*.pth
+*.pkl
+*.joblib
+
+# IDE
+.vscode/
+*.swp
+*.swo
+*~
+
+# Linting
+.pylintrc
+.flake8
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# MLflow & tracking
+mlruns/
+.mlflow

@@ -1,0 +1,81 @@
+# Sample Configuration File for Training
+
+# This file demonstrates how to configure the training pipeline.
+# Load with: config = yaml.safe_load(open('config/train.yaml'))
+
+# Data Paths
+data:
+  raw_dir: "data/raw"
+  sample_dir: "data/sample"
+  output_dir: "data/processed"
+
+# Data Processing
+preprocessing:
+  confidence_threshold: 50          # Minimum confidence (0–100)
+  handle_missing: "drop"             # Strategy: drop, mean, etc.
+  remove_outliers: true              # Remove FRP outliers (IQR method)
+  outlier_threshold: 3.0             # IQR multiplier
+
+# Feature Engineering
+features:
+  temporal:
+    enabled: true                    # Extract month, hour, day_of_year, etc.
+  thermal:
+    enabled: true                    # Create brightness_diff, brightness_ratio
+  spatial:
+    enabled: true                    # Create lat_bin, lon_bin
+  selection:
+    method: "f_classif"              # or "mutual_info"
+    k_features: 10                   # Top K features
+
+# Scaling
+scaling:
+  method: "standard"                 # standard (z-score) or minmax
+  enabled: true
+
+# Train/Test Split
+split:
+  test_size: 0.2                     # 20% test data
+  stratify: true                     # Stratified split (important for imbalanced data)
+  random_state: 42                   # Reproducibility seed
+
+# Model Hyperparameters
+models:
+  logistic_regression:
+    enabled: true
+    max_iter: 1000
+    random_state: 42
+  
+  random_forest:
+    enabled: true
+    n_estimators: 100
+    max_depth: 15
+    random_state: 42
+    n_jobs: -1                       # Use all CPU cores
+  
+  xgboost:
+    enabled: true
+    n_estimators: 100
+    max_depth: 6
+    learning_rate: 0.1
+    random_state: 42
+
+# Evaluation
+evaluation:
+  metrics:
+    - accuracy
+    - f1_macro
+    - f1_weighted
+    - confusion_matrix
+    - classification_report
+  cross_validation:
+    enabled: true
+    cv_folds: 5
+
+# Output
+output:
+  save_models: true                  # Save trained models
+  save_predictions: true             # Save test predictions
+  model_dir: "models"
+  report_dir: "reports"
+  verbose: true                      # Print progress
